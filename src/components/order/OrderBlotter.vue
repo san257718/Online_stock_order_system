@@ -153,7 +153,7 @@ function statusClass(status) {
           <div class="lg:text-right">
             <button
               v-if="['委託中', '排隊中', '部分成交'].includes(order.status)"
-              class="rounded-full border border-rose-400/25 bg-rose-400/10 px-4 py-2 text-xs font-semibold text-rose-200 transition hover:bg-rose-400/20"
+              class="rounded-2xl border border-rose-400/25 bg-rose-400/10 w-full text-xs font-semibold text-rose-200 transition hover:bg-rose-400/20"
               type="button"
               @click="emit('cancel', order.id)"
             >

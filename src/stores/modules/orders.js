@@ -27,6 +27,11 @@ export const useOrdersStore = defineStore('orders', () => {
   const searchTerm = ref('')
   const submitting = ref(false)
   const lastSubmissionMessage = ref('')
+  const lastTradeNotice = ref({
+    title: '',
+    message: '',
+    tone: 'success',
+  })
 
   const selectedSymbol = computed(() => {
     return symbols.value.find((item) => item.symbol === draft.symbol) ?? symbols.value[0]
@@ -138,6 +143,14 @@ export const useOrdersStore = defineStore('orders', () => {
     lastSubmissionMessage.value = ''
   }
 
+  function clearTradeNotice() {
+    lastTradeNotice.value = {
+      title: '',
+      message: '',
+      tone: 'success',
+    }
+  }
+
   function updateFilter(field, value) {
     if (field === 'selectedStatus') {
       selectedStatus.value = value
@@ -193,6 +206,11 @@ export const useOrdersStore = defineStore('orders', () => {
       }
 
       lastSubmissionMessage.value = `已成功送出 ${draft.side} ${draft.quantity} 股 ${draft.symbol} 的委託單。`
+      lastTradeNotice.value = {
+        title: draft.side === '買進' ? '已購買' : '已賣出',
+        message: `${draft.side === '買進' ? '已購買' : '已賣出'} ${draft.quantity} 股 ${draft.symbol}，目前委託狀態為${draft.orderType === '市價' ? '已成交' : '排隊中'}。`,
+        tone: draft.side === '買進' ? 'success' : 'sell',
+      }
     } finally {
       submitting.value = false
     }
@@ -218,6 +236,7 @@ export const useOrdersStore = defineStore('orders', () => {
     searchTerm,
     submitting,
     lastSubmissionMessage,
+    lastTradeNotice,
     selectedSymbol,
     executionPrice,
     estimatedNotional,
@@ -231,6 +250,7 @@ export const useOrdersStore = defineStore('orders', () => {
     updateDraft,
     applyQuickFill,
     resetDraft,
+    clearTradeNotice,
     updateFilter,
     submitDraft,
     cancelOrder,

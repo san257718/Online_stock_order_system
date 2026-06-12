@@ -1,4 +1,6 @@
 <script setup>
+import TradeActionButton from '../common/TradeActionButton.vue'
+
 defineProps({
   accountSummary: {
     type: Object,
@@ -107,27 +109,23 @@ const quickFillOptions = [
       </div>
 
       <div class="grid gap-3 sm:grid-cols-2">
-        <button
-          class="rounded-2xl px-5 py-3 text-sm font-semibold transition"
-          :class="draft.side === '買進'
-            ? 'bg-emerald-400 text-slate-950'
-            : 'border border-white/10 bg-white/5 text-slate-300 hover:border-white/20'"
-          type="button"
+        <TradeActionButton
+          :active="draft.side === '買進'"
+          block
+          tone="buy"
           @click="emit('update', 'side', '買進')"
         >
           買進
-        </button>
+        </TradeActionButton>
 
-        <button
-          class="rounded-2xl px-5 py-3 text-sm font-semibold transition"
-          :class="draft.side === '賣出'
-            ? 'bg-rose-400 text-slate-950'
-            : 'border border-white/10 bg-white/5 text-slate-300 hover:border-white/20'"
-          type="button"
+        <TradeActionButton
+          :active="draft.side === '賣出'"
+          block
+          tone="sell"
           @click="emit('update', 'side', '賣出')"
         >
           賣出
-        </button>
+        </TradeActionButton>
       </div>
 
       <div class="grid gap-5 md:grid-cols-2">
@@ -273,25 +271,22 @@ const quickFillOptions = [
       </div>
 
       <div class="flex flex-wrap gap-3">
-        <button
-          class="rounded-full px-5 py-3 text-sm font-semibold transition"
-          :class="draft.side === '買進'
-            ? 'bg-emerald-400 text-slate-950 hover:bg-emerald-300'
-            : 'bg-rose-400 text-slate-950 hover:bg-rose-300'"
+        <TradeActionButton
+          :active="true"
           :disabled="!canSubmit"
-          type="button"
+          :pending="submitting"
+          :tone="draft.side === '買進' ? 'buy' : 'sell'"
           @click="emit('submit')"
         >
           {{ submitting ? '送出中...' : `${draft.side} ${draft.symbol}` }}
-        </button>
+        </TradeActionButton>
 
-        <button
-          class="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-300 transition hover:border-white/20 hover:text-white"
-          type="button"
+        <TradeActionButton
+          tone="neutral"
           @click="emit('reset')"
         >
           重設委託單
-        </button>
+        </TradeActionButton>
       </div>
     </div>
   </section>

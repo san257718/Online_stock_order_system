@@ -2,7 +2,7 @@
   "name": "online_stock_order_system",
   "version": "1.0.0",
   "private": true,
-  "description": "Vue 3 frontend for the online stock order system.",
+  "description": "線上股票下單系統的 Vue 3 前端專案。",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -31,6 +31,7 @@
     "pinia": "^3.0.4",
     "tailwindcss": "^4.3.0",
     "vite": "^8.0.16",
-    "vue": "^3.5.38"
+    "vue": "^3.5.38",
+    "vue-router": "^5.1.0"
   }
 }
